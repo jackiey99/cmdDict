@@ -12,7 +12,7 @@ def getDefinitionFromWebster(word):
 	try:
 		word_url = 'http://www.merriam-webster.com/dictionary/'+word
 		source = lh.document_fromstring(urllib2.urlopen(word_url).read())
-		word_list=source.find_class('ssens')
+		word_list=source.find_class('scnt')
 		for w in word_list:
 			print w.text_content()
 	#word is not actually an English word

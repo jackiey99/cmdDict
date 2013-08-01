@@ -1,4 +1,5 @@
 import os
+import sys
 import urllib2
 import lxml.html as lh
 from lxml.html.clean import clean_html
@@ -17,11 +18,15 @@ def getDefinitionFromWebster(word):
 			print w.text_content()
 	#word is not actually an English word
 	except urllib2.HTTPError:
-		print "No this word."
+		print "Sorry, what you are looking for is not found."
 
 if __name__ == "__main__":
-	arg_parser = argparse.ArgumentParser()
-	arg_parser.add_argument('look_up_word',help='The word you want to look up')
-	args = arg_parser.parse_args()
-	getDefinitionFromWebster(args.look_up_word)
+	#only one word
+	if len(sys.argv)==2: 
+		look_up_word = sys.argv[1]
+	#phrase
+	if len(sys.argv)>2:
+		look_up_word = '%20'.join(sys.argv[1:]) #url encoding
+
+	getDefinitionFromWebster(look_up_word)
 
